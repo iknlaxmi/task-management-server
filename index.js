@@ -147,6 +147,18 @@ app.delete("/api/tasks/:taskId", authenticateJwt, async (req, res) => {
     res.status(500).json({ message: "Server error", error });
   }
 });
+//delete all taks
+app.delete("/api/tasks", authenticateJwt, async (req, res) => {
+  try {
+    const result = await Task.deleteMany({});
+
+    res
+      .status(200)
+      .json({ message: `Task deleted successfully ${result.deletedCount}` });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error });
+  }
+});
 app.get("/", (req, res) => {
   res.send("Hello,world!");
 });
